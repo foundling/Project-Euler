@@ -5,6 +5,22 @@
 -- By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 
 -- basic fibs 
-fibs n
-    | n <= 2 = n
-    | otherwise = fibs (n - 1) + fibs (n - 2)
+--
+
+buildList :: Int -> [ Int ] 
+
+buildList 0 = []
+buildList n = [n] ++ buildList (n - 1)
+
+
+fibs 1 = 1  
+fibs 2 = 2
+fibs n = fibs(n - 1) + fibs(n - 2)
+
+-- build a list of fibs
+fibsList 2 = [1,2]
+fibsList n = fibsList (n - 1) ++ [ sum [last $ init $ fibsList (n - 1), last $ fibsList (n - 1)] ]
+
+endlessFibs xs = xs ++ fibsList [ sum [last $ init $ xs, last $ xs ] ]
+
+answer = [ x | x <- fibsList 20, x < 1000000 ]
